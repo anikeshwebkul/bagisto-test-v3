@@ -1,0 +1,85 @@
+@import "tailwindcss";
+@plugin '../../hero.ts';
+@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Custom breakpoints */
+  --breakpoint-xs: 425px;
+  --breakpoint-xss: 525px;
+  --breakpoint-400: 400px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1610px;
+  --breakpoint-3xl: 1640px;
+  /* Custom spacing */
+  --spacing-7_5: 30px;
+  --spacing-30: 120px;
+  --spacing-92_5: 23.125rem;
+  /* Font family */
+  --font-family-outfit: var(--font-outfit), system-ui, sans-serif;
+}
+
+/* GLOBAL VARIABLES */
+:root {
+  /* Font families */
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  --background: #ffffff;
+  --foreground: #111111;
+
+  --hero-background: #ffffff;
+  --hero-foreground: #111111;
+
+  /* Spacing */
+  --space-30: 120px;
+  --space-7_5: 30px;
+  --space-92_5: 23.125rem;
+
+  /* Screens (breakpoints) */
+  --screen-xs: 425px;
+  --screen-xss: 525px;
+  --screen-400: 400px;
+  --screen-sm: 640px;
+  --screen-md: 768px;
+  --screen-lg: 1024px;
+  --screen-xl: 1280px;
+  --screen-2xl: 1610px;
+  --screen-3xl: 1640px;
+}
+
+.dark {
+  --background: #111111;
+  --foreground: #ffffff;
+
+  --hero-background: #111111;
+  --hero-foreground: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-outfit), system-ui, sans-serif;
+}
+
+@layer components {
+  .mobile-heading h2 {
+    @apply sticky bg-white z-50 dark:bg-background top-0;
+  }
+}
