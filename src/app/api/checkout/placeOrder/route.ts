@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { CREATE_CHECKOUT_ORDER } from "@/graphql";
 import { bagistoFetch } from "@utils/bagisto";
 import { isBagistoError } from "@utils/type-guards";
+import { CreateCheckoutOrderOperation } from "@/types/checkout/type";
 
 export async function POST(req: Request) {
   try {
@@ -11,9 +12,9 @@ export async function POST(req: Request) {
       token : body.token
     }
 
-    const res = await bagistoFetch<any>({
+    const res = await bagistoFetch<CreateCheckoutOrderOperation>({
       query: CREATE_CHECKOUT_ORDER,
-      variables: variables as any,
+      variables: variables,
       cache: "no-store",
     });
       return NextResponse.json({ data: res?.body?.data}, { status: 200 });

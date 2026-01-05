@@ -1,7 +1,7 @@
 import { CREATE_MERGE_CART } from "@/graphql";
 import { bagistoFetch } from "@/utils/bagisto";
-import { BagistoAddToCartOperation } from "@/utils/bagisto/types";
 import { isBagistoError } from "@/utils/type-guards";
+import { CreateMergeCartOperation } from "@/types/cart/type";
 
 export async function POST(req: Request) {
   try {
@@ -12,9 +12,9 @@ export async function POST(req: Request) {
       cartId: body.cartId ?? null,
     };
 
-    const res = await bagistoFetch<BagistoAddToCartOperation>({
+    const res = await bagistoFetch<CreateMergeCartOperation>({
       query: CREATE_MERGE_CART,
-      variables : variables as any,
+      variables : variables,
       cache: "no-store",
     });
 

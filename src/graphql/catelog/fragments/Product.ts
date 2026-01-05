@@ -10,6 +10,7 @@ export const PRODUCT_CORE_FRAGMENT = gql`
     urlKey
     baseImageUrl
     minimumPrice
+    specialPrice
   }
 `;
 
@@ -25,6 +26,7 @@ export const PRODUCT_DETAILED_FRAGMENT = gql`
     price
     baseImageUrl
     minimumPrice
+     specialPrice
     variants {
       edges {
         node {

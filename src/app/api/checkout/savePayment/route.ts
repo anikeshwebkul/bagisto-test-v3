@@ -8,12 +8,12 @@ export async function POST(req: Request) {
      const body = await req.json();
 
     const variables = {
-      token : body.token,
-      paymentMethod: body.paymentMethod ,
-      successUrl :  "https://myapp.com/payment/success" , 
-      failureUrl : "https://myapp.com/payment/failure",
-      cancelUrl : "https://myapp.com/payment/cancel"
-    }
+  token: body.token,
+  paymentMethod: body.paymentMethod,
+  successUrl: `${process.env.NEXT_PUBLIC_APP_URL}/payment/success`,
+  failureUrl: `${process.env.NEXT_PUBLIC_APP_URL}/payment/failure`,
+  cancelUrl: `${process.env.NEXT_PUBLIC_APP_URL}/payment/cancel`
+}
 
     const res = await bagistoFetch<any>({
       query: CREATE_CHECKOUT_PAYMENT_METHODS,

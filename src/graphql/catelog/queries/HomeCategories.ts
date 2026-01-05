@@ -7,6 +7,7 @@ query Categories {
             node {
              id
              logoUrl
+             position
                 translation {
                    name
                     slug

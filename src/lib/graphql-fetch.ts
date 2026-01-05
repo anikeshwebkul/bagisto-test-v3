@@ -56,7 +56,8 @@ export function stableStringify(value: unknown): string {
 }
 
 function stableStringifyMemo(value: unknown): string {
-  if (cacheKeyMemo.has(value)) return cacheKeyMemo.get(value)!;
+  const cached = cacheKeyMemo.get(value);
+  if (cached !== undefined) return cached;
   const str = stableStringify(value);
   cacheKeyMemo.set(value, str);
   return str;
@@ -100,8 +101,9 @@ export async function graphqlRequest<
   }
 
   let queryString: string;
-  if (queryPrintMemo.has(query)) {
-    queryString = queryPrintMemo.get(query)!;
+  const cached = queryPrintMemo.get(query);
+  if (cached !== undefined) {
+    queryString = cached;
   } else {
     queryString = print(query);
     queryPrintMemo.set(query, queryString);

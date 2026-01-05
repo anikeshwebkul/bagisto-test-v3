@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { AddressDataTypes } from "@/utils/bagisto/types";
+import { AddressDataTypes } from "@/types/types";
 import OrderReview from "./OrderReview";
 
 export const Review: FC<{

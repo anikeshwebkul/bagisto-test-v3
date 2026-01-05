@@ -1,6 +1,6 @@
 import { CREATE_PRODUCT_REVIEW } from "@/graphql";
 import { bagistoFetch } from "@/utils/bagisto";
-import { BagistoCartOperation } from "@/utils/bagisto/types";
+import { BagistoCartOperation } from "@/types/types";
 
 export async function POST(req: Request) {
     try {

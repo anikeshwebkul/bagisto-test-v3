@@ -6,12 +6,10 @@ import { getCartToken } from "@utils/getCartToken";
 import ShippingMethod from "./ShippingMethod";
 import { useQuery } from "@tanstack/react-query";
 import { FC } from "react";
+import { SelectedShippingRateType } from "@/types/checkout/type";
 
 const Shipping: FC<{
-  selectedShippingRate?: {
-    method: string;
-    methodDescription?: string;
-  };
+  selectedShippingRate?: SelectedShippingRateType;
 }> = ({ selectedShippingRate }) => {
   const token = getCartToken();
 

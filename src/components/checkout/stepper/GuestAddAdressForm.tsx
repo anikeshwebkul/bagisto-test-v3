@@ -1,7 +1,7 @@
 "use client";
 import { FC, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { AddressDataTypes } from "@/utils/bagisto/types";
+import { AddressDataTypes } from "@/types/types";
 import { EMAIL, getLocalStorage } from "@/store/local-storage";
 import { isObject } from "@/utils/type-guards";
 import { useCheckout } from "@utils/hooks/useCheckout";
@@ -225,7 +225,18 @@ export const GuestAddAdressForm: FC<{
         <InputText
           {...register("billing.phone", {
             required: "Phone field is required",
+            pattern: {
+              value: /^[\d\s\-\+\(\)]+$/,
+              message: "Please enter a valid phone number"
+            },
+            validate: (value) => {
+              const cleaned = value.replace(/\D/g, '');
+              return cleaned.length >= 10 || "Phone must be at least 10 digits";
+            }
           })}
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel"
           className="col-span-6"
           errorMsg={errors?.billing?.phone?.message}
           label="Phone *"
@@ -314,71 +325,139 @@ export const GuestAddAdressForm: FC<{
 
   if (showSummary && isOpen) {
     return (
-      <div className="mt-4 flex items-start justify-between">
-        <div className="flex flex-col">
-          <div className="flex">
-            <p className="w-[184px] text-base font-normal text-black/60 dark:text-white/60">
-              Billing Address
-            </p>
-            <div className="block cursor-pointer rounded-xl p-2 max-sm:rounded-lg">
-              <div className="flex flex-col">
-                <p className="text-base font-medium">
-                  {`${billingAddress?.firstName || ""} ${billingAddress?.lastName || ""
+      <>
+        <div className="mt-4  items-start  hidden sm:flex">
+          <div className="flex flex-col justify-between px-2 w-full">
+            <div className="flex">
+              <p className="w-[184px] text-base font-normal text-black/60 dark:text-white/60">
+                Billing Address
+              </p>
+              <div className="block cursor-pointer rounded-xl p-2 max-sm:rounded-lg">
+                <div className="flex flex-col">
+                  <p className="text-base font-medium">
+                    {`${billingAddress?.firstName || ""} ${billingAddress?.lastName || ""
+                      }`}
+                  </p>
+                  <p className="text-base font-medium text-zinc-500">
+                    {`${billingAddress?.companyName || ""}`}
+                  </p>
+                </div>
+                <p className="mt-2 text-sm text-zinc-500 max-md:mt-2 max-sm:mt-0">
+                  {`${billingAddress?.address || ""}, ${billingAddress?.postcode || ""
                     }`}
                 </p>
-                <p className="text-base font-medium text-zinc-500">
-                  {`${billingAddress?.companyName || ""}`}
+                <p className="text-zinc-500">
+                  {billingAddress?.city || ""} {billingAddress?.state || ""},
+                  {billingAddress?.country || ""}
+                </p>
+                <p className="mt-2 text-sm text-zinc-500 max-md:mt-2 max-sm:mt-0">
+                  {`T: ${billingAddress?.phone || ""}`}
                 </p>
               </div>
-              <p className="mt-2 text-sm text-zinc-500 max-md:mt-2 max-sm:mt-0">
-                {`${billingAddress?.address || ""}, ${billingAddress?.postcode || ""
-                  }`}
-              </p>
-              <p className="text-zinc-500">
-                {billingAddress?.city || ""} {billingAddress?.state || ""},
-                {billingAddress?.country || ""}
-              </p>
-              <p className="mt-2 text-sm text-zinc-500 max-md:mt-2 max-sm:mt-0">
-                {`T: ${billingAddress?.phone || ""}`}
-              </p>
             </div>
-          </div>
-          <div className="flex">
-            <p className="w-[184px] text-base font-normal text-black/60 dark:text-white/60">
-              Shipping Address
-            </p>
-            <div className="block cursor-pointer rounded-xl p-2 max-sm:rounded-lg">
-              <div className="flex flex-col">
-                <p className="text-base font-medium">
-                  {`${shippingAddress?.firstName || ""} ${shippingAddress?.lastName || ""
+            <div className="flex">
+              <p className="w-[184px] text-base font-normal text-black/60 dark:text-white/60">
+                Shipping Address
+              </p>
+              <div className="block cursor-pointer rounded-xl p-2 max-sm:rounded-lg">
+                <div className="flex flex-col">
+                  <p className="text-base font-medium">
+                    {`${shippingAddress?.firstName || ""} ${shippingAddress?.lastName || ""
+                      }`}
+                  </p>
+                  <p className="text-base font-medium text-zinc-500">
+                    {`${shippingAddress?.companyName || ""}`}
+                  </p>
+                </div>
+                <p className="mt-2 text-sm text-zinc-500 max-md:mt-2 max-sm:mt-0">
+                  {`${shippingAddress?.address || ""}, ${shippingAddress?.postcode || ""
                     }`}
                 </p>
-                <p className="text-base font-medium text-zinc-500">
-                  {`${shippingAddress?.companyName || ""}`}
+                <p className="text-zinc-500">
+                  {shippingAddress?.city || ""} {shippingAddress?.state || ""},
+                  {shippingAddress?.country || ""}
+                </p>
+                <p className="mt-2 text-sm text-zinc-500 max-md:mt-2 max-sm:mt-0">
+                  {`T: ${shippingAddress?.phone || ""}`}
                 </p>
               </div>
-              <p className="mt-2 text-sm text-zinc-500 max-md:mt-2 max-sm:mt-0">
-                {`${shippingAddress?.address || ""}, ${shippingAddress?.postcode || ""
-                  }`}
-              </p>
-              <p className="text-zinc-500">
-                {shippingAddress?.city || ""} {shippingAddress?.state || ""},
-                {shippingAddress?.country || ""}
-              </p>
-              <p className="mt-2 text-sm text-zinc-500 max-md:mt-2 max-sm:mt-0">
-                {`T: ${shippingAddress?.phone || ""}`}
-              </p>
             </div>
           </div>
-        </div>
 
-        <button
-          onClick={() => setIsOpen(false)}
-          className="cursor-pointer text-base font-normal text-black/[60%] underline dark:text-neutral-300"
-        >
-          Change
-        </button>
-      </div>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="cursor-pointer text-base font-normal text-black/[60%] underline dark:text-neutral-300"
+          >
+            Change
+          </button>
+        </div>
+        <div className="mt-4 flex sm:hidden items-start justify-between relative">
+          <div className="flex flex-col justify-between px-2 w-full">
+            <div className="flex justify-between justify-between  flex-1 wrap">
+              <p className="w-[184px] text-base font-normal text-black/60 dark:text-white/60">
+                Billing Address
+              </p>
+              <div className="block cursor-pointer rounded-xl p-2 max-sm:rounded-lg">
+                <div className="flex flex-col">
+                  <p className="text-base font-medium">
+                    {`${billingAddress?.firstName || ""} ${billingAddress?.lastName || ""
+                      }`}
+                  </p>
+                  <p className="text-base font-medium text-zinc-500">
+                    {`${billingAddress?.companyName || ""}`}
+                  </p>
+                </div>
+                <p className="mt-2 text-sm text-zinc-500 max-md:mt-2 max-sm:mt-0">
+                  {`${billingAddress?.address || ""}, ${billingAddress?.postcode || ""
+                    }`}
+                </p>
+                <p className="text-zinc-500">
+                  {billingAddress?.city || ""} {billingAddress?.state || ""},
+                  {billingAddress?.country || ""}
+                </p>
+                <p className="mt-2 text-sm text-zinc-500 max-md:mt-2 max-sm:mt-0">
+                  {`T: ${billingAddress?.phone || ""}`}
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-between justify-between  flex-1 wrap">
+              <p className="w-[184px] text-base font-normal text-black/60 dark:text-white/60">
+                Shipping Address
+              </p>
+              <div className="block cursor-pointer rounded-xl p-2 max-sm:rounded-lg">
+                <div className="flex flex-col">
+                  <p className="text-base font-medium">
+                    {`${shippingAddress?.firstName || ""} ${shippingAddress?.lastName || ""
+                      }`}
+                  </p>
+                  <p className="text-base font-medium text-zinc-500">
+                    {`${shippingAddress?.companyName || ""}`}
+                  </p>
+                </div>
+                <p className="mt-2 text-sm text-zinc-500 max-md:mt-2 max-sm:mt-0">
+                  {`${shippingAddress?.address || ""}, ${shippingAddress?.postcode || ""
+                    }`}
+                </p>
+                <p className="text-zinc-500">
+                  {shippingAddress?.city || ""} {shippingAddress?.state || ""},
+                  {shippingAddress?.country || ""}
+                </p>
+                <p className="mt-2 text-sm text-zinc-500 max-md:mt-2 max-sm:mt-0">
+                  {`T: ${shippingAddress?.phone || ""}`}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setIsOpen(false)}
+            className="cursor-pointer absolute right-0 text-base font-normal text-black/[60%] underline dark:text-neutral-300"
+            style={{ top: "-36px" }}
+          >
+            Change
+          </button>
+        </div>
+      </>
     );
   }
 

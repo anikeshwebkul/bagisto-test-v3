@@ -1,11 +1,11 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
 import { Metadata } from "next";
-import { FilterDataTypes } from "@/types/types";
+import { CartItem, FilterDataTypes } from "@/types/types";
 import { isArray } from "./type-guards";
 import { BASE_URL, baseUrl } from "./constants";
-import { CartItem } from "./bagisto/types";
 import { ProductData, ReviewDatatypes } from "@components/catalog/type";
 import { useAddress } from "@utils/useAddress";
+import { CheckoutAddressNode, MappedCheckoutAddress } from "@/types/checkout/type";
 
 export const createUrl = (
   pathname: string,
@@ -318,6 +318,7 @@ export function safePriceValue(product: ProductData): number {
     const priceValue = product?.type === "configurable"
       ? product?.minimumPrice ?? "0"
       : product?.price ?? "0";
+    // const priceValue = product?.minimumPrice ?? "0";
     return parseFloat(priceValue) || 0;
   }
   if (
@@ -346,7 +347,10 @@ export function safeCurrencyCode(product: ProductData): string {
 }
 
 
-export const useAddressesFromApi = () => {
+export const useAddressesFromApi = () : {
+  billingAddress: MappedCheckoutAddress | null;
+  shippingAddress: MappedCheckoutAddress | null;
+} => {
   const { data } = useAddress();
   const address = data?.data?.edges;
   if (!Array.isArray(address))
@@ -359,7 +363,9 @@ export const useAddressesFromApi = () => {
     (a) => a.node?.addressType === "cart_shipping"
   )?.node;
 
-  const mapNode = (node: any): any | null =>
+  const mapNode = (
+    node?: CheckoutAddressNode
+  ): MappedCheckoutAddress | null =>
     node
       ? {
         firstName: node.firstName,

@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { BagistoProductInfo } from "@/utils/bagisto/types";
 import { NOT_IMAGE } from "@/utils/constants";
 import { ProductCard } from "@/components/catalog/product/ProductCard";
+import { BagistoProductInfo } from "@/types/types";
 
 const Theme: FC<{
   products: BagistoProductInfo[];

@@ -29,7 +29,7 @@ const RenderThemeCustomization: FC<RenderThemeCustomizationProps> = ({ themeCust
     let productCarouselIndex = 0;
 
     return (
-        <div className="">
+        <section className="flex w-full max-w-screen-2xl mx-auto flex-col gap-y-10 pb-4 md:gap-y-20 px-[15px] xss:px-7.5">
             {themeCustomizations.edges.map(({ node }) => {
                 const translation = node.translations.edges.find(e => e.node.locale === 'en') || node.translations.edges[0];
 
@@ -60,7 +60,7 @@ const RenderThemeCustomization: FC<RenderThemeCustomizationProps> = ({ themeCust
                         return null;
                 }
             })}
-        </div>
+        </section>
     );
 };
 

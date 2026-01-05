@@ -27,7 +27,7 @@ export function useProductReview() {
                 body: { ...input },
             }),
 
-        onSuccess: (response: any) => {
+        onSuccess: (response) => {
             const responseData = response?.data?.createProductReview?.productReview;
             if (isObject(responseData)) {
                 showToast("Product review created successfully", "success");

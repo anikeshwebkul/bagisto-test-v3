@@ -111,7 +111,7 @@ export default async function SearchPage({
   const sortValue = params?.sort || "name-asc";
   const selectedSort =
     SortByFields.find((s) => s.key === sortValue) || SortByFields[0];
-  let afterCursor: string | undefined = cursor;
+  const afterCursor: string | undefined = cursor;
   const rawColor = params?.color;
   const rawSize = params?.size;
   const rawBrand = params?.brand;
@@ -241,16 +241,16 @@ export default async function SearchPage({
 
   return (
     <>
-      <h2 className="text-4xl font-semibold mx-auto mt-7.5 w-full max-w-screen-2xl my-3">
+      <h2 className="text-2xl sm:text-4xl font-semibold mx-auto mt-7.5 w-full max-w-screen-2xl my-3 mx-auto px-[15px] xss:px-7.5">
         All Top Products
       </h2>
 
-      <div className="my-10 hidden gap-4 md:flex md:items-baseline md:justify-between">
+      <div className="my-10 hidden gap-4 md:flex md:items-baseline md:justify-between w-full mx-auto max-w-screen-2xl px-[15px] xss:px-7.5">
         <FilterList filterAttributes={filterAttributes} />
 
         <SortOrder sortOrders={SortByFields} title="Sort by" />
       </div>
-      <div className="flex items-center justify-between gap-4 py-8 md:hidden">
+      <div className="flex items-center justify-between gap-4 py-8 md:hidden  mx-auto w-full max-w-screen-2xl px-[15px] xss:px-7.5">
         <MobileFilter filterAttributes={filterAttributes} />
 
         <SortOrder sortOrders={SortByFields} title="Sort by" />
@@ -265,7 +265,10 @@ export default async function SearchPage({
         />
       )}
       {isArray(products) ? (
-        <Grid className="mb-4 w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <Grid 
+        className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 w-full max-w-screen-2xl mx-auto md:grid-cols-3 lg:grid-cols-4 px-[15px] xss:px-7.5"
+         style={{ gap: "46px" }}
+        >
           <ProductGridItems products={products} />
         </Grid>
       ) : null}

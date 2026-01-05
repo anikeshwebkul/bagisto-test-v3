@@ -1,5 +1,5 @@
 export const revalidate = parseInt(process.env.REVALIDATION_DURATION as string);
-import type { FilterDataTypes, InputData } from "@/utils/bagisto/types";
+import type { FilterDataTypes, InputData } from "@/types/types";
 import { FC } from "react";
 
 import { getCollectionHomeProducts } from "@/utils/bagisto";

@@ -50,8 +50,26 @@ export default function ShippingMethod({
     <div>
       {(selectedShippingRate) ? (
         isOpen ? (
-          <div className="mt-4 flex flex-col justify-between sm:flex-row">
+          <>
+             <div className="mt-4  justify-between hidden sm:flex">
             <div className="flex">
+              <p className="w-auto text-base font-normal text-black/60 dark:text-white/60 sm:w-[192px]">
+                Shipping Method
+              </p>
+              <p className="text-base font-normal">{selectedMethodTitle} (${selectedMethodPrice})</p>
+            </div>
+          <div className="flex">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="cursor-pointer text-base font-normal text-black/[60%] underline dark:text-neutral-300"
+            >
+              Change
+            </button>
+            </div>
+          </div>
+
+            <div className="mt-4 block sm:hidden flex flex-col justify-between sm:flex-row relative  ">
+            <div className="flex justify-between  flex-1 wrap">
               <p className="w-auto text-base font-normal text-black/60 dark:text-white/60 sm:w-[192px]">
                 Shipping Method
               </p>
@@ -60,11 +78,14 @@ export default function ShippingMethod({
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="cursor-pointer text-base font-normal text-black/[60%] underline dark:text-neutral-300"
+              className="cursor-pointer absolute right-0  text-base font-normal text-black/[60%] underline dark:text-neutral-300"
+              style={{ top: "-36px" }}
             >
               Change
             </button>
           </div>
+          </>
+        
         ) : (
           <form className="mt-6" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-5">

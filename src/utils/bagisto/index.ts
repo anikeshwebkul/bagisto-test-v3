@@ -2,7 +2,6 @@ import { cookies, headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import {
-  BagistoCollectionHomeOperation,
   BagistoCollectionProductsOperation,
   BagistoCreateUserOperation,
   BagistoProductInfo,
@@ -10,7 +9,7 @@ import {
   ImageInfo,
   InputData,
   ProductDetailsInfo,
-} from "./types";
+} from "@/types/types";
 import {
   BAGISTO_SESSION,
   HIDDEN_PRODUCT_TAG,
@@ -28,6 +27,7 @@ import { SUBSCRIBE_TO_NEWSLETTER } from "@/graphql/theme/mutations";
 import { getHomeProductQuery } from "./product-collection";
 import { authOptions } from "@utils/auth";
 import { RegisterInputs } from "@components/customer/RegistrationForm";
+import { GetFooterResponse, GetFooterVariables, ThemeCustomizationResult } from "@/types/theme/theme-customization";
 
 type ExtractVariables<T> = T extends { variables: object }
   ? T["variables"]
@@ -357,14 +357,11 @@ export async function getCollectionHomeProducts({
   return [];
 }
 
-export async function getThemeCustomization(): Promise<{
-  footer_links: any;
-  services_content: any;
-}> {
+export async function getThemeCustomization(): Promise<ThemeCustomizationResult> {
   try {
     const footerRes = await bagistoFetch<{
-      data: BagistoCollectionHomeOperation["data"];
-      variables: { type: string };
+      data: GetFooterResponse;
+      variables: GetFooterVariables
     }>({
       query: GET_FOOTER,
       variables: { type: "footer_links" },
@@ -373,8 +370,8 @@ export async function getThemeCustomization(): Promise<{
     });
 
     const servicesRes = await bagistoFetch<{
-      data: BagistoCollectionHomeOperation["data"];
-      variables: { type: string };
+      data: GetFooterResponse;
+      variables: GetFooterVariables;
     }>({
       query: GET_FOOTER,
       variables: { type: "services_content" },
@@ -385,16 +382,16 @@ export async function getThemeCustomization(): Promise<{
 
 
     return {
-      footer_links: (footerRes.body.data as any),
-      services_content: (servicesRes.body.data as any),
+      footer_links: footerRes.body.data,
+      services_content: servicesRes.body.data,
     };
   } catch (err) {
     console.error("ThemeCustomization Error:", err);
   }
 
   return {
-    footer_links: [],
-    services_content: [],
+    footer_links: null,
+    services_content: null,
   };
 }
 

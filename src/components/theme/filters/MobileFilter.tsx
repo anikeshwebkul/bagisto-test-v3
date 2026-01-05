@@ -42,7 +42,7 @@ export default function MobileFilter({
         onOpenChange={onOpenChange}
         size="full"
       >
-        <DrawerContent className="w-full xs:max-w-[400px]">
+        <DrawerContent className="w-full xss:max-w-[400px]">
           {(onClose) => (
             <>
               <DrawerHeader className="flex items-center justify-between gap-1">

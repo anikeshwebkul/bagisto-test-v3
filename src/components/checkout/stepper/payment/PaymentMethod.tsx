@@ -14,7 +14,7 @@ export default function PaymentMethod({
   isOpen,
   setIsOpen
 }: {
-  selectedPayment?: any;
+  selectedPayment?: string;
   methods: any;
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
@@ -54,7 +54,8 @@ export default function PaymentMethod({
   return (
     <>
       {selectedPayment && !isOpen && (
-        <div className="mt-4 flex justify-between">
+        <>
+        <div className="mt-4  justify-between hidden sm:flex ">
           <div className="flex">
             <p className="w-auto text-base font-normal text-black/60 dark:text-white/60 sm:w-[192px]">
               Payment Method
@@ -69,10 +70,31 @@ export default function PaymentMethod({
               setIsOpen(true);
             }}
             className="cursor-pointer text-base font-normal text-black/60 underline dark:text-neutral-300"
-          >
+         >
             Change
           </button>
         </div>
+        <div className="mt-4 flex sm:hidden justify-between relative">
+          <div className="flex justify-between justify-between  flex-1 wrap">
+            <p className="w-auto text-base font-normal text-black/60 dark:text-white/60 sm:w-[192px]">
+              Payment Method
+            </p>
+            <p className="text-base font-normal">
+              {selectedMethodLabelPrior as string}
+            </p>
+          </div>
+
+          <button
+            onClick={() => {
+              setIsOpen(true);
+            }}
+            className="cursor-pointer absolute right-0 text-base font-normal text-black/60 underline dark:text-neutral-300"
+          style={{ top: "-36px" }}
+         >
+            Change
+          </button>
+        </div>
+        </>
       )}
 
       {isOpen && (

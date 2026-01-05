@@ -9,6 +9,7 @@ import TwitterIcon from "@components/common/icons/social-icon/TwitterIcon";
 import Subscribe from "./Subscribe";
 import FooterMenu from "./FooterMenu";
 import ServiceContent from "./ServiceContent";
+import { ThemeCustomizationTranslationEdge } from "@/types/theme/theme-customization";
 const { COMPANY_NAME, SITE_NAME } = process.env;
 
 export default async function Footer() {
@@ -23,10 +24,10 @@ export default async function Footer() {
   return (
     <>
       <div className="mx-auto my-8 w-full sm:my-12 md:my-20 md:max-w-4xl">
-        {isObject(services) && (services as any)?.translations?.edges && (
+        {isObject(services) && services?.translations?.edges && (
           <ServiceContent
-            name={(services as any)?.name}
-            serviceData={(services as any).translations.edges.map((edge: any) => edge.node)}
+            name={services?.name}
+            serviceData={services?.translations?.edges?.map((edge: ThemeCustomizationTranslationEdge) => edge.node)}
           />
         )}
       </div>

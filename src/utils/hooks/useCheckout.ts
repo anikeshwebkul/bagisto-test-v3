@@ -198,15 +198,12 @@ export const useCheckout = () => {
       const responseData = response?.data?.createCheckoutOrder?.checkoutOrder;
 
       if (isObject(responseData)) {
-        if (isObject(responseData)) {
-          showToast("Order Placed Successfully!", "success");
-          setCookie(ORDER_ID, responseData?.orderId as string);
-          dispatch(clearCart())
-          router.replace("/success");
-        } else {
-          showToast("payment has been cancelled.", "danger");
-        }
-      } else {
+        showToast("Order Placed Successfully!", "success");
+        setCookie(ORDER_ID, responseData?.orderId as string);
+        dispatch(clearCart())
+        router.replace("/success");
+        } 
+       else {
         showToast(response?.error?.message as string, "warning");
       }
     },

@@ -18,6 +18,7 @@ import { ProductNode } from "@/components/catalog/type";
 import { RelatedProductsSection } from "@components/catalog/product/RelatedProductsSection";
 import ProductInfo from "@components/catalog/product/ProductInfo";
 import { LRUCache } from "@/utils/LRUCache";
+import { ProductVariant } from "@/types/category/type";
 
 const productCache = new LRUCache<ProductNode>(100, 10);
 export const dynamic = 'force-static';
@@ -88,7 +89,7 @@ export default async function ProductPage({
     : [];
 
   const VariantImages = isArray(product?.variants?.edges)
-    ? product?.variants.edges.map((edge: { node: any }) => edge.node)
+    ? product?.variants.edges.map((edge: { node: ProductVariant }) => edge.node)
     : [];
 
   return (
@@ -99,29 +100,31 @@ export default async function ProductPage({
         }}
         type="application/ld+json"
       />
-      <div className="flex flex-col gap-y-4 rounded-lg pb-0 pt-4 sm:gap-y-6 md:py-7.5 lg:flex-row lg:gap-8">
+      <div className="flex flex-col gap-y-4 rounded-lg pb-0 pt-4 sm:gap-y-6 md:py-7.5 lg:flex-row w-full max-w-screen-2xl mx-auto px-[15px] xss:px-7.5 lg:gap-8">
         <div className="h-full w-full max-w-[885px]">
-          {isArray(VariantImages) ? (
-            <HeroCarousel
-              images={
-                VariantImages?.map(
-                  (image: { baseImageUrl: string; name: unknown }) => ({
-                    src: getImageUrl(image.baseImageUrl, baseUrl, NOT_IMAGE) || "",
-                    altText: image?.name || "",
-                  })
-                ) || []
-              }
-            />
-          ) : (
-            <HeroCarousel
-              images={[
-                {
-                  src: imageUrl || "",
-                  altText: product?.name || "product image",
-                },
-              ]}
-            />
-          )}
+          <Suspense fallback={<ProductDetailSkeleton />}>
+            {isArray(VariantImages) ? (
+              <HeroCarousel
+                images={
+                  VariantImages?.map(
+                    (image: { baseImageUrl: string; name: unknown }) => ({
+                      src: getImageUrl(image.baseImageUrl, baseUrl, NOT_IMAGE) || "",
+                      altText: image?.name || "",
+                    })
+                  ) || []
+                }
+              />
+            ) : (
+              <HeroCarousel
+                images={[
+                  {
+                    src: imageUrl || "",
+                    altText: product?.name || "product image",
+                  },
+                ]}
+              />
+            )}
+          </Suspense>
         </div>
         <div className="basis-full lg:basis-4/6">
           <Suspense fallback={<ProductDetailSkeleton />}>

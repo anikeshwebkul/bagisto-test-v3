@@ -9,7 +9,6 @@ export const GET_THEME_CUSTOMIZATION = gql`
           type
           name
           status
-          themeCode
           translations {
             edges {
               node {

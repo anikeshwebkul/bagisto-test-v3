@@ -18,11 +18,15 @@ import {
   graphqlRequest,
 } from "@/graphql";
 import { SortByFields } from "@utils/constants";
+import { CategoryDetail } from "@components/theme/search/CategoryDetail";
+import { Suspense } from "react";
+import FilterListSkeleton from "@components/common/skeleton/FilterSkeleton";
+import { CategoryNode, TreeCategoriesResponse } from "@/types/theme/category-tree";
 
-function findCategoryBySlug(categories: any[], slug: string): any {
+function findCategoryBySlug(categories: CategoryNode[], slug: string): CategoryNode | null {
   for (const category of categories) {
     const translation = category.translations?.edges?.find(
-      (t: any) => t.node.slug === slug
+      (t) => t.node.slug === slug
     );
     if (translation) return category;
 
@@ -47,7 +51,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { collection: categorySlug } = await params;
 
-  const treeData = await graphqlRequest<any>(
+  const treeData = await graphqlRequest<TreeCategoriesResponse>(
     GET_TREE_CATEGORIES,
     { parentId: 1 },
     { tags: ["categories"], life: "days" }
@@ -59,7 +63,7 @@ export async function generateMetadata({
   if (!categoryItem) return notFound();
 
   const translation = categoryItem.translations.edges.find(
-    (t: any) => t.node.slug === categorySlug
+    (t) => t.node.slug === categorySlug
   )?.node;
 
   return {
@@ -79,7 +83,7 @@ export default async function CategoryPage({
   const resolvedParams = await searchParams;
 
   const [treeData, colorFilterData, sizeFilterData, brandFilterData] = await Promise.all([
-    graphqlRequest<any>(
+    graphqlRequest<TreeCategoriesResponse>(
       GET_TREE_CATEGORIES,
       { parentId: 1 },
       { tags: ["categories"], life: "days" }
@@ -164,20 +168,31 @@ export default async function CategoryPage({
   const products = data?.products?.edges?.map((e) => e.node) || [];
   const pageInfo = data?.products?.pageInfo;
   const totalCount = data?.products?.totalCount;
+  const translation = categoryItem.translations?.edges?.find(
+  (t) => t.node.slug === categorySlug
+)?.node;
 
   return (
-    <>
-      <div className="my-10 hidden gap-4 md:flex md:items-baseline md:justify-between">
+    <section>
+      <Suspense fallback={<FilterListSkeleton />}>
+  <CategoryDetail
+    categoryItem={{ description: translation?.description ?? "", name: translation?.name ?? "" }}
+    
+  />
+</Suspense>
+      <div className="my-10 hidden gap-4 md:flex md:items-baseline md:justify-between w-full max-w-screen-2xl mx-auto px-[15px]">
         <FilterList filterAttributes={filterAttributes} />
         <SortOrder sortOrders={SortByFields} title="Sort by" />
       </div>
-      <div className="flex items-center justify-between gap-4 py-8 md:hidden">
+      <div className="flex items-center justify-between gap-4 py-8 md:hidden w-full max-w-screen-2xl mx-auto px-[15px]">
         <MobileFilter filterAttributes={filterAttributes} />
         <SortOrder sortOrders={SortByFields} title="Sort by" />
       </div>
 
       {isArray(products) && products.length > 0 ? (
-        <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full max-w-screen-2xl mx-auto px-[15px]"
+         style={{ gap: "46px" }}
+        >
           <ProductGridItems products={products} />
         </Grid>
       ) : (
@@ -197,8 +212,8 @@ export default async function CategoryPage({
             currentPage={currentPage}
             nextCursor={pageInfo?.endCursor}
           />
-        </nav>
+        </nav>  
       )}
-    </>
+    </section>
   );
 }

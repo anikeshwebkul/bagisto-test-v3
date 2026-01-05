@@ -38,7 +38,7 @@ export function VariantSelector({
                   Array.from(searchParams.keys()).find(
                     (key) => key !== "type"
                   ) ?? null;
-                let isAvailable = node?.isValid;
+                const isAvailable = node?.isValid;
                 const nextParams = new URLSearchParams(searchParams.toString());
                 nextParams.set(attributeCode, node.id);
 

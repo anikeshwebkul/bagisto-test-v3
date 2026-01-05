@@ -13,7 +13,6 @@ export const Rating = ({
 }: RatingTypes) => {
 
     const rating = star ?? 0;
-  const showRating = rating > 0;
     const reviewCountToShow = reviewCount ?? totalReview;
 
  
@@ -33,11 +32,9 @@ export const Rating = ({
           />
         ))}
       </div>
-      {showRating && reviewCountToShow && reviewCountToShow > 0 && (
         <span className="text-nowrap h-fit font-outfit text-sm font-light">
-          ({reviewCountToShow} Review{reviewCountToShow !== 1 ? 's' : ''})
+          ({reviewCountToShow} Review{reviewCountToShow !== 1 && reviewCountToShow !== 0 ? 's' : ''})
         </span>
-      )}
     </div>
   );
 };

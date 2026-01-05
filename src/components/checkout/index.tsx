@@ -20,7 +20,8 @@ const CheckOut = ({ step }: CheckOutProps) => {
   const cartDetail = useAppSelector((state) => state.cartDetail);
   const cartItems = cartDetail?.cart;
   const selectedShippingRate = cartItems?.selectedShippingRate;
-  const selectedShippingRateTitle = cartItems?.selectedShippingRate;
+   const selectedShippingRateTitle = cartItems?.selectedShippingRateTitle || cartItems?.selectedShippingRate;
+  // const selectedShippingRateTitle =  cartItems?.selectedShippingRate;
   const selectedPayment = cartItems?.paymentMethod;
   const selectedPaymentTitle = cartItems?.paymentMethodTitle;
   const [isOpen, setIsOpen] = useState(!selectedPayment);
@@ -51,7 +52,7 @@ const CheckOut = ({ step }: CheckOutProps) => {
               currentStep={step}
               selectedPayment={selectedPayment}
               selectedPaymentTitle={selectedPaymentTitle}
-              selectedShippingRate={selectedShippingRate as any}
+              selectedShippingRate={selectedShippingRate}
               selectedShippingRateTitle={selectedShippingRateTitle}
               shippingAddress={shippingAddress}
               setIsOpen={setIsOpen}
@@ -65,7 +66,7 @@ const CheckOut = ({ step }: CheckOutProps) => {
             <CartSkeleton className="w-full" />
           ) : (
             <div className="max-h-auto w-full flex-initial flex-shrink-0 flex-grow-0 lg:sticky lg:top-0">
-              <CheckoutCart cartItems={cartItems as any} selectedShippingRate={selectedShippingRate} />
+              <CheckoutCart cartItems={cartItems} selectedShippingRate={selectedShippingRate} />
             </div>
           )}
         </div>

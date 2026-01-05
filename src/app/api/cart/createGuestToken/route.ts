@@ -1,27 +1,13 @@
 import { CREATE_CART_TOKEN } from "@/graphql";
+import { CreateCartTokenOperation } from "@/types/cart/type";
 import { bagistoFetch } from "@/utils/bagisto";
 import { isBagistoError } from "@/utils/type-guards";
-
-interface CreateCartTokenResponse {
-  createCartToken: {
-    cartToken: {
-      id: number;
-      _id: string;
-      cartToken: string;
-      sessionToken: string;
-      success: boolean;
-      message: string;
-      isGuest: boolean;
-    };
-  };
-}
 
 
 export async function POST() {
   try {
-    const res = await bagistoFetch<{ data: CreateCartTokenResponse }>({
+    const res = await bagistoFetch<{ data: CreateCartTokenOperation }>({
   query: CREATE_CART_TOKEN,
-  variables: {} as any,
   cache: "no-store",
 });
 

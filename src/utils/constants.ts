@@ -47,7 +47,7 @@ export const baseUrl = process.env.NEXT_SERVER_BAGISTO_ENDPOINT;
 export const GRAPHQL_URL = typeof window === 'undefined'
   ? `${process.env.NEXT_SERVER_BAGISTO_ENDPOINT}/api/graphql`
   : `${process.env.NEXT_PUBLIC_BAGISTO_ENDPOINT || process.env.NEXT_SERVER_BAGISTO_ENDPOINT}/api/graphql`;
-export const NEXT_AUTH_SECRET=process.env.NEXT_AUTH_SECRET;
+export const NEXT_AUTH_SECRET=process.env.NEXTAUTH_SECRET;
 
 
 // -----Pagination--------//
@@ -181,12 +181,10 @@ export const imageProtocol = (process.env.NEXT_SERVER_MAGENTO_PROTOCOL ||
 export function getImageUrl(url?: string, baseUrl?: string, fallback?: string) {
   if (!url) return fallback;
 
-  // If url already starts with http:// or https:// → return as is
   if (url.startsWith("http://") || url.startsWith("https://")) {
     return url;
   }
 
-  // Otherwise → treat it as relative path
   return `${baseUrl}${url.startsWith("/") ? url : `/${url}`}`;
 }
 

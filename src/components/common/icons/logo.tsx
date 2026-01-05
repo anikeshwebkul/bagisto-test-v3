@@ -32,7 +32,7 @@ export default function LogoIcon(_props: React.ComponentProps<"svg">) {
             />
           </svg>
         </div>
-        <p className="text-sm font-medium text-black dark:text-white">
+        <p className="text-sm font-semibold text-black dark:text-white">
           Bagisto Store
         </p>
       </div>

@@ -4,11 +4,12 @@ import DollerIcon from "@components/common/icons/service/DollerIcon";
 import EarphoneIcon from "@components/common/icons/service/EarphoneIcon";
 import ProductIcon from "@components/common/icons/service/ProductIcon";
 import TruckIcon from "@components/common/icons/service/TruckIcon";
-import { OptionDataTypes, TranslationsTypes } from "@/utils/bagisto/types";
+import { OptionDataTypes } from "@/types/types";
+import { ThemeCustomizationTranslationNode } from "@/types/theme/theme-customization";
 
 export interface ServiceContentDataTypes {
   name?: string;
-  serviceData: TranslationsTypes[];
+  serviceData: ThemeCustomizationTranslationNode[];
 }
 
 export interface ServiceContenRenderTypes {

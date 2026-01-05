@@ -10,10 +10,10 @@ export function ProductsSection({ title, description, products }: ProductsSectio
   if (!products?.length) return null;
 
   return (
-    <div className="flex flex-col gap-y-10 pt-8 sm:pt-12 lg:pt-20">
+    <div className="flex flex-col gap-y-10 pt-8 sm:pt-12 lg:pt-20 w-full max-w-screen-2xl mx-auto px-[15px]  xss:px-7.5">
       <div className="flex flex-col gap-y-4 font-outfit text-center">
-        <h2 className="text-4xl font-semibold">{title}</h2>
-        <p className="font-normal">{description}</p>
+        <h2 className="text-2xl sm:text-4xl font-semibold">{title}</h2>
+        <p className="text-base font-normal text-black/60 dark:text-neutral-300">{description}</p>
       </div>
 
       <Grid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -34,8 +34,7 @@ export function ProductsSection({ title, description, products }: ProductsSectio
                 name: item?.name || item.sku,
                 id: item.id,
                 type: item.type,
-              }}
-            />
+              }} specialPrice={""}            />
           );
         })}
       </Grid>

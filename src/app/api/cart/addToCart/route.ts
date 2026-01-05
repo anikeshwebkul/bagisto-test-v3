@@ -1,6 +1,6 @@
 import { CREATE_ADD_PRODUCT_IN_CART } from "@/graphql";
+import { AddToCartOperation } from "@/types/cart/type";
 import { bagistoFetch } from "@/utils/bagisto";
-import { BagistoAddToCartOperation } from "@/utils/bagisto/types";
 import { isBagistoError } from "@/utils/type-guards";
 
 export async function POST(req: Request) {
@@ -14,9 +14,9 @@ export async function POST(req: Request) {
       quantity: body.quantity,
     };
 
-    const res = await bagistoFetch<BagistoAddToCartOperation>({
+    const res = await bagistoFetch<AddToCartOperation>({
       query: CREATE_ADD_PRODUCT_IN_CART,
-      variables : variables as any,
+      variables: variables,
       cache: "no-store",
     });
 

@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import {
   AddressDataTypes,
-} from "@/utils/bagisto/types";
+} from "@/types/types";
 import { isObject } from "@/utils/type-guards";
 import { useCheckout } from "@utils/hooks/useCheckout";
 import { ProceedToCheckout } from "../ProceedToCheckout";

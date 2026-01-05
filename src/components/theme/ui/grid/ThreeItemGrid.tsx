@@ -2,7 +2,7 @@ import clsx from "clsx";
 import Link from "next/link";
 
 import { NOT_IMAGE } from "@/utils/constants";
-import { ProductDetailsInfo } from "@/utils/bagisto/types";
+import { ProductDetailsInfo } from "@/types/types";
 import { GridTileImage } from "./Tile";
 export default function ThreeItemGridItem({
   item,

@@ -6,6 +6,7 @@ import { AddRatingStar } from "./AddRatingStar";
 import { Button } from "@components/common/button/Button";
 import { useCustomToast } from "@/utils/hooks/useToast";
 import { useProductReview } from "@utils/hooks/useProductReview";
+import Image from "next/image";
 
 export default function AddProductReview({
   productId,
@@ -105,7 +106,7 @@ export default function AddProductReview({
               <div className="border-2 border-dashed border-gray-300  rounded-xl p-6 text-center transition-colors hover:border-primary-500">
                 <div className="space-y-3">
                   <div className="relative">
-                    <img
+                    <Image
                       src={imagePreview}
                       alt="Preview"
                       className="w-full h-64 object-cover rounded-lg"

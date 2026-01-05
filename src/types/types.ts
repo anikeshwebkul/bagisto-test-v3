@@ -14,11 +14,6 @@ export type Cart = Omit<BagistoCart, "lines"> & {
   lines: any;
 };
 
-export interface ProductTypes {
-  id: number;
-  name: string;
-  price: number;
-}
 
 /**
  * Sorting & filtration constants
@@ -115,26 +110,6 @@ export type selectedPaymentMethodType = {
   cartId: string;
 };
 
-export type ChannelType = {
-  id: string;
-  code: string;
-  name: string;
-  description: string;
-  theme: string;
-  hostname: string;
-  defaultLocaleId: number;
-  baseCurrencyId: number;
-  rootCategoryId: number;
-  logoUrl: string;
-  faviconUrl: string;
-  success: string;
-};
-
-export type BagistoChannelOperation = {
-  data: {
-    getDefaultChannel: ChannelType;
-  };
-};
 
 export type CartItem = {
   id: string;
@@ -249,9 +224,6 @@ export type CartItem = {
   payment: selectedPaymentMethodType;
 };
 
-export type Collection = BagistoCollection & {
-  path: string;
-};
 
 export type Image = {
   url: string;
@@ -267,37 +239,6 @@ export type ImageInfo = {
   productId: number;
   altText: string;
 };
-
-export type Menu = {
-  id: string;
-  name: string;
-  slug: string;
-};
-
-export type Money = {
-  amount: string;
-  currencyCode: string;
-};
-
-export type Page = {
-  data: {
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    translations: {
-      id: string;
-      urlKey: string;
-      metaDescription: string;
-      metaTitle: string;
-      pageTitle: string;
-      metaKeywords: string;
-      htmlContent: string;
-      locale: string;
-      cmsPageId: string;
-    }[];
-  }[];
-};
-
 export type Product = Omit<BagistoProductInfo, "variants" | "images"> & {
   products: ProductDetailsInfo[];
   paginatorInfo: {
@@ -322,20 +263,6 @@ export type ProductOption = {
   // values: string[];
   displayName: string;
   values: ProductOptionValues[];
-};
-
-export type ProductOptionData = {
-  id: string;
-  code: string;
-  // values: string[];
-  label: string;
-  options: ProductOptionValuesData[];
-};
-
-export type ProductOptionValuesData = {
-  id: string;
-  label: string;
-  products: [number];
 };
 
 export type ProductOptionValues = {
@@ -434,10 +361,6 @@ export type BagistoProduct = {
   description: string;
   descriptionHtml: string;
   options: ProductOption[];
-  priceRange: {
-    maxVariantPrice: Money;
-    minVariantPrice: Money;
-  };
   variants: Connection<ProductVariant>;
   featuredImage: Image;
   images: Connection<Image>;
@@ -467,10 +390,6 @@ export type BagistoProductInfo = {
   shortDescription: string;
   descriptionHtml: string;
   options: ProductOption[];
-  priceRange: {
-    maxVariantPrice: Money;
-    minVariantPrice: Money;
-  };
   cacheGalleryImages: {
     smallImageUrl: string;
     mediumImageUrl: string;
@@ -657,123 +576,53 @@ export type BagistoUserTypes = {
 };
 
 export type BagistoCreateUserOperation = {
-  data: BagistoUserTypes;
+  data: {
+    createCustomer: {
+      customer: BagistoUser;
+    };
+  };
   variables: {
     input: {
       firstName: string;
       lastName: string;
       email: string;
       password: string;
-      passwordConfirmation: string;
+      confirmPassword: string;
+      phone?: string;
+      gender?: string;
+      dateOfBirth?: string;
+      status?: string;
+      isVerified?: string;
+      isSuspended?: string;
+      subscribedToNewsLetter?: boolean;
     };
   };
 };
 
-export type bagistPaymentType = {
-  cart: {
-    id: string;
-    customerEmail: null;
-    customerFirstName: null;
-    customerLastName: null;
-    shippingMethod: string;
-    couponCode: null;
-    isGift: false;
-    itemsCount: 1;
-    itemsQty: 1;
-    exchangeRate: null;
-    globalCurrencyCode: string;
-    baseCurrencyCode: string;
-    channelCurrencyCode: string;
-    cartCurrencyCode: string;
-    grandTotal: string;
-    baseGrandTotal: string;
-    subTotal: string;
-    baseSubTotal: string;
-    taxTotal: number;
-    baseTaxTotal: number;
-    discountAmount: number;
-    baseDiscountAmount: number;
-    checkoutMethod: null;
-    isGuest: true;
-    isActive: true;
-    customerId: null;
-    channelId: "1";
-    appliedCartRuleIds: null;
-    items: [
-      {
-        id: string;
-        quantity: 1;
-        sku: string;
-        type: string;
-        name: string;
-        couponCode: null;
-        weight: string;
-        totalWeight: string;
-        baseTotalWeight: string;
-        price: string;
-        basePrice: string;
-        total: string;
-        baseTotal: string;
-        taxPercent: string;
-        taxAmount: string;
-        baseTaxAmount: string;
-        discountPercent: string;
-        discountAmount: string;
-        baseDiscountAmount: string;
-        parentId: null;
-        productId: string;
-        cartId: string;
-        taxCategoryId: null;
-        customPrice: null;
-        appliedCartRuleIds: null;
-
-        product: {
-          id: string;
-          type: string;
-          attributeFamilyId: string;
-          sku: string;
-          parentId: null;
-        };
-      }
-    ];
-    formattedPrice: {
-      grandTotal: string;
-      baseGrandTotal: string;
-      subTotal: string;
-      baseSubTotal: string;
-      taxTotal: string;
-      baseTaxTotal: string;
-      discount: string;
-      baseDiscount: string;
-      discountedSubTotal: string;
-      baseDiscountedSubTotal: string;
-    };
-    shippingAddress: null;
-    billingAddress: null;
-    selectedShippingRate: null;
-    payment: {
-      id: string;
-      method: string;
-      methodTitle: string;
-      cartId: string;
-    };
-  };
+export type BagistoUser = {
+  id: string;
+  _id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  gender?: string;
+  dateOfBirth?: string;
+  status: string;
+  apiToken?: string;
+  customerGroupId?: string | null;
+  channelId?: string | null;
+  subscribedToNewsLetter: boolean;
+  isVerified: string;
+  isSuspended: string;
+  token?: string;
+  rememberToken?: string | null;
+  name: string;
 };
 
 export type SuperAttribute = {
   attributeId: number;
   attributeOptionId: number;
-};
-
-export type BagistoRemoveFromCartOperation = {
-  data: {
-    removeCartItem: {
-      cart: BagistoCart;
-    };
-  };
-  variables: {
-    lineIds: number;
-  };
 };
 
 export type BagistoUpdateCartOperation = {
@@ -792,25 +641,7 @@ export type BagistoUpdateCartOperation = {
   };
 };
 
-export type BagistoCollectionOperation = {
-  data: {
-    allProducts: {
-      data: BagistoProductInfo[];
-    };
-  };
-  variables: {
-    input: InputData[];
-  };
-};
-export interface PaginatedProducts {
-  paginatorInfo: {
-    count: number;
-    currentPage: number;
-    lastPage: number;
-    total: number;
-  };
-  products: ProductDetailsInfo[];
-}
+
 export type BagistoCollectionProductsOperation = {
   data: {
     allProducts: {
@@ -830,31 +661,10 @@ export type BagistoCollectionProductsOperation = {
   };
 };
 
-export type BagistoCollectionCategoriesOperation = {
-  data: {
-    getFilterAttribute: {
-      data: BagistoProductInfo[];
-    };
-  };
-  variables: {
-    categorySlug: string;
-  };
-};
-
-export type BagistoCollectionHomeCategoryCarousel = {
-  data: {
-    homeCategories: BagistoCollectionMenus[];
-  };
-  variables: {
-    input: InputData[];
-    reverse?: boolean;
-    sortKey?: string;
-  };
-};
 
 export type ThemeCustomizationTypes = {
   id: string;
-  themeCode: string;
+  themeCode?: string;
   type: string;
   name: string;
   sortOrder: string;
@@ -894,7 +704,7 @@ export type OptionDataTypes = {
   column_2: ThemeOptions[];
   column_3: ThemeOptions[];
   services: {
-    serviceIcon: string;
+    service_icon: string;
     description: string;
     title: string;
   }[];
@@ -918,109 +728,6 @@ export type InputData = {
   value: string | number;
 };
 
-export type BagistoCollectionsOperation = {
-  data: {
-    homeCategories: Array<BagistoCollection>;
-  };
-};
-
-export type BagistoMenuOperation = {
-  data: {
-    homeCategories?: {
-      id: string;
-      categoryId: string;
-      description: string;
-      name: string;
-      slug: string;
-      metaTitle: string; // .metaTitle;
-      metaDescription: string; // .metaDescription;
-      metaKeywords: string; // .metaKeywords;
-    }[];
-  };
-  variables: {
-    handle: string;
-  };
-};
-
-export type BagistoPageOperation = {
-  data: { cmsPages: Page };
-  variables: {
-    input: FilterCmsPageTranslationInput;
-  };
-};
-
-export type FilterCmsPageTranslationInput = {
-  urlKey: string;
-};
-
-export type BagistoPagesOperation = {
-  data: { cmsPages: Page };
-};
-
-export type BagistoProductOperation = {
-  data: { product: BagistoProduct };
-  variables: {
-    handle: string;
-  };
-};
-export type StateArrayDataType = {
-  id: string;
-  countryCode: string;
-  code: string;
-  defaultName: string;
-  countryId: string;
-};
-
-export type CountryArrayDataType = {
-  id: string;
-  code: string;
-  name: string;
-  states: StateArrayDataType[];
-};
-
-export type BagistoCountriesOperation = {
-  data: {
-    countries: CountryArrayDataType[];
-  };
-};
-
-export type ShippingArrayDataType = {
-  title: string;
-  methods: {
-    code: string;
-    label: string;
-    price: number;
-    formattedPrice: string;
-    basePrice: number;
-    formattedBasePrice: string;
-  };
-};
-
-export type BagistoCheckoutOperation = {
-  data: {
-    shippingMethods: ShippingArrayDataType[];
-  };
-};
-
-export type BagistoProductRecommendationsOperation = {
-  data: {
-    productRecommendations: BagistoProduct[];
-  };
-  variables: {
-    productId: string;
-  };
-};
-
-export type BagistoProductsOperation = {
-  data: {
-    products: Connection<BagistoProduct>;
-  };
-  variables: {
-    query?: string;
-    reverse?: boolean;
-    sortKey?: string;
-  };
-};
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;

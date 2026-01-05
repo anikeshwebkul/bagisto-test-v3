@@ -1,4 +1,5 @@
 import { CREATE_CHECKOUT_ADDRESS } from "@/graphql";
+import { CreateCheckoutAddressOperation } from "@/types/checkout/type";
 import { bagistoFetch } from "@/utils/bagisto";
 import { isBagistoError } from "@/utils/type-guards";
 
@@ -37,9 +38,9 @@ export async function POST(req: Request) {
       });
     }
 
-    const res = await bagistoFetch<any>({
+    const res = await bagistoFetch<CreateCheckoutAddressOperation>({
       query: CREATE_CHECKOUT_ADDRESS,
-      variables : variables as any,
+      variables : variables,
       cache: "no-store",
     });
 

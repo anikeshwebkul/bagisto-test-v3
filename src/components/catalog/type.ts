@@ -6,6 +6,7 @@ export interface ProductSectionNode {
   name?: string;
   baseImageUrl?: string;
   price?: string | number;
+  specialPrice?: string;
   images?: {
     edges: Array<{
       node: {
@@ -24,6 +25,7 @@ export interface ProductNode {
   urlKey?: string;
   description?: string;
   shortDescription?: string;
+  specialPrice?: string;
   metaTitle?: string;
   baseImageUrl?: string;
   superAttributes?: {
@@ -56,7 +58,6 @@ export interface ProductsResponse {
   };
 }
 
-
 export interface ProductSectionNode {
   id: string;
   sku: string;
@@ -66,6 +67,7 @@ export interface ProductSectionNode {
   baseImageUrl?: string;
   minimumPrice?: string | number;
   price?: string | number;
+  specialPrice?: string;
   images?: {
     edges: Array<{
       node: {
@@ -80,8 +82,6 @@ export type ProductsSectionProps = {
   description: string;
   products: ProductSectionNode[];
 };
-
-
 
 export interface ProductFilterAttributeResponse {
   attribute: {
@@ -98,7 +98,6 @@ export interface ProductFilterAttributeResponse {
   };
 }
 
-
 export interface ProductReviewNode {
   id: string;
   rating: number;
@@ -106,7 +105,6 @@ export interface ProductReviewNode {
   title?: string;
   comment?: string;
 }
-
 
 export interface ProductData {
   variants?: {
@@ -140,6 +138,7 @@ export interface ProductData {
   type?: string;
   reviewCount?: number;
   minimumPrice?: string;
+  specialPrice?: string;
   shortDescription?: string;
   status?: boolean;
   id?: string;
@@ -151,6 +150,7 @@ export interface ProductData {
 }
 
 export type additionalDataTypes = {
+  attribute: any;
   id: string;
   code: string;
   label: string;
@@ -159,16 +159,14 @@ export type additionalDataTypes = {
   type: string;
 };
 
-
-
-// Product review 
+// Product review
 
 export interface RatingTypes {
-    length?: number;
-    value?: number;
-    size?: string;
-    className?: string;
-    onChange?: (value: number) => void;
+  length?: number;
+  value?: number;
+  size?: string;
+  className?: string;
+  onChange?: (value: number) => void;
 }
 
 export interface ReviewDatatypes {

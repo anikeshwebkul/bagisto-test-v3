@@ -87,10 +87,10 @@ export default function LoginForm() {
 
 
   return (
-    <div className="my-8 flex w-full items-center justify-between gap-4 lg:my-16 xl:my-28">
+    <div className="my-8 flex w-full items-center w-full max-w-screen-2xl mx-auto px-[15px]  xss:px-7.5 justify-between gap-4 lg:my-16 xl:my-28">
       <div className="flex w-full max-w-[583px] flex-col gap-y-4 lg:gap-y-12">
         <div className="font-outfit">
-          <h2 className="py-1 text-3xl font-semibold lg:text-4xl">
+          <h2 className="py-1 text-2xl font-semibold sm:text-4xl">
             Sign in to your account
           </h2>
           <p className="mt-2 text-lg font-normal text-black/60 dark:text-neutral-300">
@@ -147,7 +147,7 @@ export default function LoginForm() {
             />
 
             <Link
-              className="text-end text-sm font-medium text-blue-600 hover:text-blue-500"
+              className="text-end text-sm font-medium text-blue-600 hover:text-blue-500 underline"
               href="/customer/forget-password"
             >
               Forgot your password ?

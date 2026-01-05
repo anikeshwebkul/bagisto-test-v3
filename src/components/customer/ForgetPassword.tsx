@@ -68,7 +68,7 @@ export default function ForgetPasswordForm() {
   };
 
   return (
-    <div className="my-8 flex w-full items-center justify-between gap-4 lg:my-16 xl:my-32">
+    <div className="my-8 flex w-full items-center w-full max-w-screen-2xl mx-auto px-[15px] xss:px-7.5 justify-between gap-4 lg:my-16 xl:my-32">
       <div className="flex w-full flex-col gap-y-4 lg:max-w-[583px] lg:gap-y-12">
         <div className="font-outfit">
           <h2 className="py-1 text-3xl font-semibold sm:text-4xl">
@@ -82,7 +82,7 @@ export default function ForgetPasswordForm() {
 
         <form
           noValidate
-          className="flex flex-col gap-y-12"
+          className="flex flex-col gap-y-10"
           onSubmit={handleSubmit(onSubmit)}
         >
           <InputText

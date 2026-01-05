@@ -53,10 +53,10 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className="my-8 flex w-full items-center justify-between gap-0 md:gap-4 lg:my-16 xl:my-28">
+    <div className="my-8 flex w-full items-center w-full max-w-screen-2xl mx-auto px-[15px] xss:px-7.5 justify-between gap-0 md:gap-4 lg:my-16 xl:my-28">
       <div className="relative flex w-full max-w-[583px] flex-col gap-y-4 lg:gap-y-12">
         <div className="font-outfit">
-          <h2 className="py-1 text-3xl font-semibold sm:text-4xl">
+          <h2 className="py-1 text-2xl font-semibold sm:text-4xl">
             Become User
           </h2>
           <p className="mt-2 text-lg font-normal text-black/[60%] dark:text-neutral-300 sm:mt-2">
@@ -188,7 +188,7 @@ export default function RegistrationForm() {
         </form>
       </div>
 
-      <div className="relative w-full max-w-[790px] aspect-[0.7] md:aspect-[1.14] opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto">
+      <div className="relative hidden aspect-[0.9] max-h-[692px] w-full max-w-[790px] sm:block md:aspect-[1.14]">
         <Image
           fill
           priority

@@ -7,7 +7,6 @@ export const GET_FOOTER = `
           type
           name
           status
-          themeCode
           translations {
             edges {
               node {

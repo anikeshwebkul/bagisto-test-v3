@@ -1,7 +1,7 @@
 import { DEFAULT_OPTION } from "@/utils/constants";
-import { isObject } from "@/utils/type-guards";
 import { Price } from "@components/theme/ui/Price";
 import { Accordion, AccordionItem } from "@heroui/accordion";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { createUrl } from "@utils/helper";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,9 +22,16 @@ export default function CartItemAccordion({
 
   return (
     <div className="mobile-heading mx-auto block w-full dark:bg-transparent lg:hidden">
-      <Accordion selectionMode="multiple" className="px-0">
+      <Accordion selectionMode="multiple" className="px-0" >
         <AccordionItem
           key="1"
+          indicator={({ isOpen }) =>
+            isOpen ? (
+              <ChevronLeftIcon className="h-5 w-5 stroke-neutral-800 dark:stroke-white" />
+            ) : (
+              <ChevronRightIcon className="h-5 w-5 stroke-neutral-800 dark:stroke-white" />
+            )
+          }
           aria-label="Accordion 1"
           title="Show order summary"
           subtitle={
@@ -70,7 +77,7 @@ export default function CartItemAccordion({
                           </span>
                           {item.name !== DEFAULT_OPTION ? (
                             <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                               {item.sku}
+                               {item?.node?.sku}
                             </p>
                           ) : null}
                         </div>
@@ -102,9 +109,9 @@ export default function CartItemAccordion({
                 <p className="text-black[60%] font-outfit text-base font-normal dark:text-white">
                   Shipping
                 </p>
-                {isObject(cartItems?.selectedShippingRate) ? (
+                {cartItems?.shippingAmount ? (
                   <Price
-                    amount={cartItems?.selectedShippingRate?.price || "0"}
+                    amount={cartItems?.shippingAmount || "0"}
                     className="text-right text-base text-black dark:text-white"
                     currencyCode={"USD"}
                   />

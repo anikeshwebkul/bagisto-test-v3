@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {ThemeOptions } from "@/utils/bagisto/types";
+import {ThemeOptions } from "@/types/types";
 import { isArray } from "@/utils/type-guards";
 
 const getUrlparams = (url: string) => {

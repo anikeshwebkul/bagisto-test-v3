@@ -9,11 +9,9 @@ import LoadingDots from "@components/common/icons/LoadingDots";
 
 export default function AddToCartButton({
   productType,
-  // urlKey,
   productId,
 }: {
   productType?: string;
-  // urlKey?: string;
   productId: string;
 }) {
   const { isCartLoading,

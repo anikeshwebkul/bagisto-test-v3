@@ -23,7 +23,11 @@
       "@components/*": ["./src/components/*"],
       "@utils/*": ["./src/utils/*"],
       "@/*": ["./src/*"],
-      "@/lib/*": ["./lib/*"]
+      "@lib/*": ["./lib/*"],
+      "@graphql/*": ["./graphql/*"],
+      "@types/*": ["./types/*"],
+      "@store/*": ["./store/*"],
+      "@provider/*": ["./provider/*"]
     }
   },
   "include": [

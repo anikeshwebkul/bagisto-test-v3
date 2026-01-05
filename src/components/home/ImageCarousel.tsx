@@ -73,7 +73,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({ options }) => {
     return (
         <section className="mt-7 w-full">
             <div
-                className="group relative w-full overflow-hidden rounded-2xl"
+                className="group relative w-full overflow-hidden rounded-xl  md:rounded-2xl"
                 style={{ aspectRatio: '1.98' }}
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
@@ -114,7 +114,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({ options }) => {
                 })}
 
                 {images.length > 1 && (
-                    <div className="absolute bottom-4 left-1/2 z-30 flex -translate-x-1/2 gap-2 rounded-full bg-black/30 px-3 py-2 backdrop-blur-sm md:bottom-6">
+                    <div className="absolute bottom-4 left-1/2 z-0 flex -translate-x-1/2 gap-2 rounded-full bg-black/30 px-3 py-2 backdrop-blur-sm md:bottom-6">
                         {images.map((_, index) => (
                             <button
                                 key={index}

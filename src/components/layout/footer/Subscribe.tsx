@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { RecoverPasswordFormState } from "@components/customer/types";
 import { Button } from "@components/common/button/LoadingButton";
 import { userSubscribe } from "@utils/actions";
+import { useCustomToast } from "@utils/hooks/useToast";
 
 type FormValues = {
   email: string;
@@ -19,6 +20,7 @@ const Subscribe = () => {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({ mode: "onSubmit" });
+   const { showToast } = useCustomToast();
 
   const [status, setStatus] = useState<
     RecoverPasswordFormState["errors"] | null
@@ -44,6 +46,15 @@ const Subscribe = () => {
       setTimeout(() => {
         setStatus(null);
       }, 3500);
+    }
+    if(status?.email){
+      showToast(status?.email[0], "warning");
+    }
+    if(status?.apiRes?.status === false){
+      showToast(status?.apiRes?.msg, "warning");
+    }
+    if(status?.apiRes?.status === true){
+      showToast("Successfully Subscribed", "success");
     }
   }, [status]);
 
@@ -94,24 +105,6 @@ const Subscribe = () => {
       {errors.email && (
         <p className="mt-1 absolute left-0 -bottom-2.5 text-sm text-red-600 dark:text-red-400">
           {errors.email.message}
-        </p>
-      )}
-
-      {status?.email && (
-        <p className="mt-1 absolute left-0 -bottom-2.5 text-sm text-red-600 dark:text-red-400">
-          {status.email[0]}
-        </p>
-      )}
-
-      {status?.apiRes?.status === false && (
-        <p className="mt-1 absolute left-0 -bottom-2.5 text-sm text-red-600 dark:text-red-400">
-          {status.apiRes.msg}
-        </p>
-      )}
-
-      {status?.apiRes?.status === true && (
-        <p className="mt-1 absolute left-0 -bottom-2.5 text-s text-green-600 dark:text-green-400">
-          {status.apiRes.msg}
         </p>
       )}
     </form>

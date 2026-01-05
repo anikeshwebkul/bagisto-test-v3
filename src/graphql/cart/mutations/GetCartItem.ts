@@ -10,6 +10,7 @@ export const GET_CART_ITEM = gql`
         grandTotal
         shippingAmount
         selectedShippingRate
+        selectedShippingRateTitle
         subtotal
         itemsQty
         isGuest

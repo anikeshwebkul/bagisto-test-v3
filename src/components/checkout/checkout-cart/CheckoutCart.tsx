@@ -56,11 +56,11 @@ export default function CheckoutCart({ cartItems, selectedShippingRate : _id }: 
                           </h1>
                           {item.name !== DEFAULT_OPTION ? (
                             <p className="text-sm font-normal text-neutral-500 dark:text-neutral-400">
-                              {item.sku}
+                              {item?.node?.sku}
                             </p>
                           ) : null}
                           <span className="font-normal text-black dark:text-white">
-                            Quantity : {item.node.quantity}
+                            Quantity : {item?.node?.quantity}
                           </span>
                           <div className="block h-16 xl:hidden">
                             <Price

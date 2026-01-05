@@ -26,9 +26,9 @@ interface CheckOutProps {
   selectedPayment?: any;
   selectedPaymentTitle?: string;
   isOpen: boolean;
-  setIsOpen: any;
+  setIsOpen: (value: boolean) => void;
   selectedShippingRate?: any;
-  selectedShippingRateTitle?: any;
+  selectedShippingRateTitle?: string;
 }
 
 export default function Stepper(
@@ -141,7 +141,7 @@ export default function Stepper(
           </div>
         </div>
 
-        {isCompleted && <section>{step.component}</section>}
+        {isCompleted && <section className="relative">{step.component}</section>}
       </div>
     );
   };

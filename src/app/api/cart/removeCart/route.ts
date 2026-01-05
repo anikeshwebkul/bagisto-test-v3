@@ -1,7 +1,7 @@
 import {  REMOVE_CART_ITEM } from "@/graphql";
 import { bagistoFetch } from "@/utils/bagisto";
-import { BagistoAddToCartOperation } from "@/utils/bagisto/types";
 import { isBagistoError } from "@/utils/type-guards";
+import { RemoveCartItemOperation } from "@/types/cart/type";
 
 export async function POST(req: Request) {
   try {
@@ -12,9 +12,9 @@ export async function POST(req: Request) {
       cartItemId: body.cartItemId ?? null,
     };
 
-    const res = await bagistoFetch<BagistoAddToCartOperation>({
+    const res = await bagistoFetch<RemoveCartItemOperation>({
       query: REMOVE_CART_ITEM,
-      variables : variables as any,
+      variables : variables,
       cache: "no-store",
     });
 

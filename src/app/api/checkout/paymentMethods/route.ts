@@ -1,4 +1,5 @@
 import { GET_CHECKOUT_PAYMENT_METHODS } from "@/graphql";
+import { CheckoutPaymentMethodsOperation } from "@/types/checkout/type";
 import { bagistoFetch } from "@/utils/bagisto";
 
 
@@ -10,9 +11,9 @@ export async function POST(req: Request) {
       token: body.token,
     };
 
-    const response = await bagistoFetch<any>({
+    const response = await bagistoFetch<CheckoutPaymentMethodsOperation>({
       query: GET_CHECKOUT_PAYMENT_METHODS,
-      variables: variables as any,
+      variables: variables,
       cache: "no-store",
     });
 

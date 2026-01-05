@@ -1,7 +1,7 @@
-import { AddressDataTypes } from "@/utils/bagisto/types";
+import { AddressDataTypes } from "@/types/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-interface Cart {
+export interface Cart {
   id: number;
   itemsQty: number;
   taxAmount: number;
@@ -10,8 +10,9 @@ interface Cart {
   items: any;
   paymentMethod : string ;
   paymentMethodTitle : string ; 
-  shippingMethod : string 
-  selectedShippingRate : string
+  shippingMethod : string ;
+  selectedShippingRate : string;
+  selectedShippingRateTitle : string;
 }
 export interface SelectedPayment {
   method: string;

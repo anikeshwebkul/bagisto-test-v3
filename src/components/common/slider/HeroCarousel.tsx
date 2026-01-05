@@ -12,7 +12,6 @@ export default function HeroCarousel({
   images: { src: string; altText: string }[];
 }) {
   const [current, setCurrent] = React.useState(0);
-  const [loading, setLoading] = React.useState(true);
 
   const prevSlide = () =>
     setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -26,10 +25,6 @@ export default function HeroCarousel({
   return (
     <>
       <div className="group relative overflow-hidden">
-        {loading && (
-          <div className="absolute inset-0 z-10 animate-pulse overflow-hidden rounded-2xl bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 dark:from-neutral-800 dark:via-neutral-700 dark:to-neutral-800" />
-        )}
-
         <motion.div
           key={current}
           initial={{ opacity: 0 }}
@@ -41,13 +36,10 @@ export default function HeroCarousel({
           <Image
             fill
             alt={images[current]?.altText as string}
-            className={`h-full w-full object-cover transition duration-300 ease-in-out group-hover:scale-105 ${
-              loading ? "opacity-0" : "opacity-100"
-            }`}
+            className={`h-full w-full object-cover transition duration-300 ease-in-out group-hover:scale-105`}
             priority={true}
             sizes="(min-width: 1024px) 66vw, 100vw"
             src={images[current]?.src as string}
-            onLoadingComplete={() => setLoading(false)}
           />
         </motion.div>
 
@@ -75,17 +67,18 @@ export default function HeroCarousel({
       </div>
 
       {images?.length > 1 ? (
-        <ul className="fade-in my-3 flex min-h-fit items-center justify-center gap-2 overflow-x-auto overflow-y-hidden py-1 sm:my-7 lg:mb-0">
-          {images.map((image, index: number) => {
+        <ul className="fade-in my-3 flex flex-nowrap gap-2 overflow-x-auto overflow-y-hidden py-1 sm:my-7 lg:mb-0">
+          {images.map((image, index) => {
             const isActive = index === current;
 
             return (
-              <li key={image.src} className="sm:min-w-32 relative aspect-square w-32">
+              <li
+                key={image.src}
+                className="relative aspect-square w-32 flex-shrink-0"
+              >
                 <button
-                  aria-label="Select product image"
-                  className="h-full w-full cursor-pointer"
+                  className="h-full w-full"
                   onClick={() => {
-                    setLoading(true);
                     setCurrent(index);
                   }}
                 >
@@ -101,6 +94,7 @@ export default function HeroCarousel({
             );
           })}
         </ul>
+
       ) : null}
     </>
   );

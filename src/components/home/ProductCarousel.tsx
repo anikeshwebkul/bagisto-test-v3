@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { graphqlRequest } from "../../lib/graphql-fetch";
 import { GET_PRODUCTS } from "@/graphql/catelog/queries/Product";
-import { ProductsSection } from "@/components/catalog/product/ProductsSection";
 import { ThreeItemGrid } from "./ThreeItemGrid";
+import Theme from "./ProductCarouselTheme";
 
 interface ProductCarouselProps {
     options: {
@@ -79,7 +79,8 @@ const ProductCarousel: FC<ProductCarouselProps> = async ({ options, itemCount = 
         }
 
         return (
-            <ProductsSection
+          
+            <Theme
                 title={title || "Products"}
                 description="Discover the latest trends! Fresh products just added—shop new styles, tech, and essentials before they're gone."
                 products={products}

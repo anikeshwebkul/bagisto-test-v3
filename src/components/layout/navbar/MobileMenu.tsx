@@ -64,6 +64,7 @@ export default function MobileMenu({ menu }: { menu: any }) {
                         className="text-nowrap relative text-neutral-500 before:absolute before:bottom-0 before:left-0 before:h-px before:w-0 before:bg-current before:transition-all before:duration-300 before:content-[''] hover:text-black hover:before:w-full dark:text-neutral-400 dark:hover:text-neutral-300"
                         href={item.slug ? `/search/${item.slug}` : "/search"}
                         prefetch={true}
+                         onClick={onClose}
                       >
                         {item.name}
                       </Link>

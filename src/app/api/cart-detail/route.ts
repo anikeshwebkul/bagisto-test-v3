@@ -1,17 +1,17 @@
 import { GET_CART_ITEM } from "@/graphql";
+import { GetCartItemVariables, ReadCartOperation } from "@/types/cart/type";
 import { bagistoFetch } from "@/utils/bagisto";
-import { BagistoCartOperation } from "@/utils/bagisto/types";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const variables = {
+    const variables: GetCartItemVariables = {
       token: body.token ?? null,
     };
 
-    const response = await bagistoFetch<BagistoCartOperation>({
+    const response = await bagistoFetch<ReadCartOperation>({
       query: GET_CART_ITEM,
-      variables : variables as any,
+      variables: variables,
       cache: "no-store",
     });
     return Response.json({

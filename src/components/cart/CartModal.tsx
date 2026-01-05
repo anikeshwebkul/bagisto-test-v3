@@ -26,6 +26,8 @@ import { redirectToCheckout } from "@/utils/actions";
 import { EMAIL, getLocalStorage } from "@/store/local-storage";
 import Link from "next/link";
 import { createUrl, isCheckout } from "@utils/helper";
+
+
 type MerchandiseSearchParams = {
   [key: string]: string;
 };
@@ -123,7 +125,7 @@ export default function CartModal() {
                                     </span>
                                     {item.name !== DEFAULT_OPTION ? (
                                       <p className="text-sm text-black dark:text-neutral-400">
-                                        {item.sku}
+                                        {item?.node?.sku}
                                       </p>
                                     ) : null}
                                   </div>
@@ -172,7 +174,7 @@ export default function CartModal() {
                         />
                       </div>
 
-                      <div className="mb-3 flex items-center justify-between pb-1">
+                      {/* <div className="mb-3 flex items-center justify-between pb-1">
                         <p className="text-base font-normal text-black/[60%] dark:text-white">
                           Shipping
                         </p>
@@ -187,7 +189,7 @@ export default function CartModal() {
                             Calculated at Next Step
                           </p>
                         )}
-                      </div>
+                      </div> */}
 
                       <div className="mb-3 flex items-center justify-between pb-1">
                         <p className="text-base font-normal text-black/[60%] dark:text-white">

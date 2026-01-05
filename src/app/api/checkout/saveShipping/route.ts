@@ -2,12 +2,13 @@ import { NextResponse } from "next/server";
 import { bagistoFetch } from "@/utils/bagisto";
 import { isBagistoError } from "@/utils/type-guards";
 import { CREATE_CHECKOUT_SHIPPING_METHODS } from "@/graphql";
+import { CreateCheckoutShippingMethodVariables } from "@/types/checkout/type";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const variables = {
+    const variables : CreateCheckoutShippingMethodVariables = {
       token : body.token,
       shippingMethod: body.shippingMethod
     }

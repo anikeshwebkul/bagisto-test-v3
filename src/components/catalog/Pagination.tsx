@@ -103,7 +103,7 @@ export default function Pagination({
 
   return (
     <ul
-      className="mx-auto h-10 gap-x-2 text-base flex"
+      className="mx-auto h-10 gap-x-2 text-base flex justify-center"
       role="navigation"
       aria-label="Pagination"
     >

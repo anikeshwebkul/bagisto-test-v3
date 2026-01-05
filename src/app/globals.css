@@ -3,6 +3,33 @@
 @source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @custom-variant dark (&:is(.dark *));
 
+html,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #6b7280 transparent; 
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 6px; 
+  height: 6px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background-color: #6b7280;
+  border-radius: 9999px;
+}
+
+.dark html::-webkit-scrollbar-thumb,
+.dark body::-webkit-scrollbar-thumb {
+  background-color: #d4d4d4; 
+}
 @theme {
   /* Custom breakpoints */
   --breakpoint-xs: 425px;
@@ -27,10 +54,10 @@
   /* Font families */
   font-family: var(--font-outfit), system-ui, sans-serif;
   --background: #ffffff;
-  --foreground: #111111;
+  --foreground: #000;
 
   --hero-background: #ffffff;
-  --hero-foreground: #111111;
+  --hero-foreground: #000;
 
   /* Spacing */
   --space-30: 120px;
@@ -50,21 +77,13 @@
 }
 
 .dark {
-  --background: #111111;
+  --background: #000;
   --foreground: #ffffff;
 
-  --hero-background: #111111;
+  --hero-background: #000;
   --hero-foreground: #ffffff;
 }
 
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 10px;
-}
 
 @theme inline {
   --color-background: var(--background);
@@ -82,4 +101,11 @@ body {
   .mobile-heading h2 {
     @apply sticky bg-white z-50 dark:bg-background top-0;
   }
+
+  .prose h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 12px 0;
+  font-family: "Outfit", sans-serif;
+}
 }

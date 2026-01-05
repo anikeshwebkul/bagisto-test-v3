@@ -15,7 +15,6 @@ export const CUSTOMER_REGISTRATION = gql`
         status
         apiToken
         customerGroupId
-        channelId
         subscribedToNewsLetter
         isVerified
         isSuspended

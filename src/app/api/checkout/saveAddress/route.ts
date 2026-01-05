@@ -1,4 +1,5 @@
 import { GET_CHECKOUT_ADDRESSES } from "@/graphql";
+import { GetCheckoutAddressesOperation } from "@/types/checkout/type";
 import { bagistoFetch } from "@/utils/bagisto";
 
 
@@ -10,9 +11,9 @@ export async function POST(req: Request) {
       token: body.token,
     };
 
-    const response = await bagistoFetch<any>({
+    const response = await bagistoFetch<GetCheckoutAddressesOperation>({
       query: GET_CHECKOUT_ADDRESSES,
-      variables: variables as any,
+      variables: variables,
       cache: "no-store",
     });
 

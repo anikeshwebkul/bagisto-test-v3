@@ -1,8 +1,8 @@
-import { BagistoCollectionMenus } from "@/utils/bagisto/types";
 import { NOT_IMAGE } from "@/utils/constants";
 import Link from "next/link";
 import { FC } from "react";
 import { GridTileImage } from "../ui/grid/Tile";
+import { BagistoCollectionMenus } from "@/types/types";
 
 const Category: FC<{
   name: string;

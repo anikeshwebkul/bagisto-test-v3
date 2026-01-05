@@ -24,9 +24,8 @@ export default function Search({
   useEffect(() => {
     const handler = setTimeout(() => {
       const newParams = new URLSearchParams(searchParams.toString());
-
       if (searchValue.trim() === "") {
-        newParams.delete("q");
+          newParams.delete("q");
       } else {
         newParams.set("q", searchValue);
       }
@@ -36,7 +35,7 @@ export default function Search({
     }, 400); 
 
     return () => clearTimeout(handler);
-  }, [searchValue]);
+  }, [searchValue ]);
 
   useEffect(() => {
     if (search && inputRef.current) {
@@ -48,7 +47,7 @@ export default function Search({
   }, [search]);
 
   return (
-    <div className="w-max-[550px] relative w-full md:min-w-[386px] xl:min-w-[516px] outline-none hover:outline-none">
+    <div className="w-max-[550px] relative w-full md:min-w-[386px] xl:min-w-[516px] outline-none hover:outline-none ">
       {setSearch && (
         <button
           onClick={() => setSearch(!search)}

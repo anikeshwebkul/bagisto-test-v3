@@ -1,9 +1,9 @@
 import { NextRequest } from "next/server";
 
 import { bagistoFetch } from "@/utils/bagisto";
-import { BagistoUpdateCartOperation } from "@/utils/bagisto/types";
 import { isBagistoError } from "@/utils/type-guards";
 import { UPDATE_CART_ITEM } from "@/graphql";
+import { UpdateCartItemOperation } from "@/types/cart/type";
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,9 +15,9 @@ export async function POST(req: NextRequest) {
     };
     
 
-    const res = await bagistoFetch<BagistoUpdateCartOperation>({
+    const res = await bagistoFetch<UpdateCartItemOperation>({
       query: UPDATE_CART_ITEM,
-       variables : variables as any,
+       variables : variables,
       cache: "no-store",
     });
 
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       data: { ...res?.body.data },
     });
 
-  } catch (error: any) {
+  } catch (error) {
     if (isBagistoError(error)) {
       return Response.json(
         {

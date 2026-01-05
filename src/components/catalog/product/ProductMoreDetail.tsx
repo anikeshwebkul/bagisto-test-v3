@@ -15,6 +15,9 @@ export const ProductMoreDetails: FC<{
   totalReview: number;
 }> = ({ description, additionalData, reviews, productId, totalReview }) => {
 
+  const filterAdditionalData = additionalData.filter((item) => item?.attribute?.
+    isVisibleOnFront == "1");
+
 
   return (
     <div className="mt-7 sm:my-7">
@@ -45,41 +48,46 @@ export const ProductMoreDetails: FC<{
         >
           <Prose className="pb-2" html={description} />
         </AccordionItem>
+
+        {filterAdditionalData.length > 0
+          ?
+          <AccordionItem
+            key="2"
+            classNames={{
+              title: "text-start",
+              trigger: "cursor-pointer",
+            }}
+            indicator={({ isOpen }) =>
+              isOpen ? (
+                <ChevronLeftIcon className="h-5 w-5 stroke-neutral-800 dark:stroke-white" />
+              ) : (
+                <ChevronRightIcon className="h-5 w-5 stroke-neutral-800 dark:stroke-white" />
+              )
+            }
+            aria-label="Additional Information"
+            title="Additional Information"
+          >
+            <div className="grid max-w-max grid-cols-[auto_1fr] gap-x-8 gap-y-4 px-1 pb-2">
+              {filterAdditionalData?.map((item) => (
+                <React.Fragment key={item.label}>
+                  <div className="grid">
+                    <p className="text-base font-normal text-black/60 dark:text-white">
+                      {item?.attribute?.adminName}
+                    </p>
+                  </div>
+                  <div className="grid">
+                    <p className="text-base font-normal text-black/60 dark:text-white">
+                      {item?.value || "--"}
+                    </p>
+                  </div>
+                </React.Fragment>
+              ))}
+            </div>
+          </AccordionItem>
+
+          : null}
         <AccordionItem
-          key="2"
-          classNames={{
-            title: "text-start",
-            trigger: "cursor-pointer",
-          }}
-          indicator={({ isOpen }) =>
-            isOpen ? (
-              <ChevronLeftIcon className="h-5 w-5 stroke-neutral-800 dark:stroke-white" />
-            ) : (
-              <ChevronRightIcon className="h-5 w-5 stroke-neutral-800 dark:stroke-white" />
-            )
-          }
-          aria-label="Additional Information"
-          title="Additional Information"
-        >
-          <div className="grid max-w-max grid-cols-[auto_1fr] gap-x-8 gap-y-4 px-1 pb-2">
-            {additionalData?.map((item) => (
-              <React.Fragment key={item.label}>
-                <div className="grid">
-                  <p className="text-base font-normal text-black/60 dark:text-white">
-                    {item?.label}
-                  </p>
-                </div>
-                <div className="grid">
-                  <p className="text-base font-normal text-black/60 dark:text-white">
-                    {item?.value || "--"}
-                  </p>
-                </div>
-              </React.Fragment>
-            ))}
-          </div>
-        </AccordionItem>
-        <AccordionItem
-          key="3"
+          key={filterAdditionalData.length > 0 ? "3" : "2"}
           classNames={{
             title: "text-start",
             trigger: "cursor-pointer",
